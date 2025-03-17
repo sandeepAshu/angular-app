@@ -1,0 +1,32 @@
+<main> 
+    <div class="container w-100 position-relative">
+        <div class="wrapper col-md-12 mx-auto">
+            <div class="title">
+                Login Form
+            </div>
+            <form [formGroup]="loginForm" (submit)="onSubmit()">
+                <div class="field">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Username</mat-label>
+                        <input type="text" matInput formControlName="username" placeholder="">
+                        <mat-error *ngIf="loginForm.get('username')?.hasError('required')">
+                            Username is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="field">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Password</mat-label>
+                        <input type="text" matInput formControlName="password" placeholder="">
+                        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+                            Password is required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="field">
+                    <input type="submit" value="Login">
+                </div>
+            </form>
+        </div>
+    </div>
+</main>

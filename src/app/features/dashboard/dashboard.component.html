@@ -1,0 +1,76 @@
+<main class="container w-100 position-relative">
+    <div class="dashboard-container w-100">
+        <header>
+            <h2>User Dashboard</h2>
+        </header>
+        <mat-form-field>
+            <input matInput [(ngModel)]="searchText" (input)="onSearchChange($event)" placeholder="Search users" />
+        </mat-form-field>
+
+        <div *ngIf="isLoading()">
+            <mat-spinner></mat-spinner>
+            <p>Loading users...</p>
+        </div>
+        <table mat-table [dataSource]="dataSource">
+            <!-- ID Column -->
+            <ng-container matColumnDef="id">
+                <th class="header" mat-header-cell *matHeaderCellDef> ID </th>
+                <td mat-cell *matCellDef="let user" appHighlight> {{ user.id }} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <th class="header" mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let user" appHighlight> {{ user.name }} </td>
+            </ng-container>
+
+            <!-- Username Column -->
+            <ng-container matColumnDef="username">
+                <th class="header" mat-header-cell *matHeaderCellDef> Username </th>
+                <td mat-cell *matCellDef="let user" appHighlight> {{ user.username }} </td>
+            </ng-container>
+
+            <!-- Email Column -->
+            <ng-container matColumnDef="email">
+                <th class="header" mat-header-cell *matHeaderCellDef> Email </th>
+                <td mat-cell *matCellDef="let user" appHighlight> {{ user.email }} </td>
+            </ng-container>
+
+            <!-- Company Column -->
+            <ng-container matColumnDef="company">
+                <th class="header" mat-header-cell *matHeaderCellDef> Company </th>
+                <td mat-cell *matCellDef="let user" appHighlight> {{ user.company.name }} </td>
+            </ng-container>
+
+            <!-- Header and Row Definitions -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectUser(row)"></tr>
+        </table>
+        <mat-paginator [length]="dataSource.data.length " [pageSize]="5" [pageIndex]="0" (page)="onPageChange($event)">
+        </mat-paginator>
+
+        <!-- @defer (on viewport; prefetch on idle) {
+            <div class="user-details-section" *ngIf="selectedUser()">
+              <mat-card class="details-card">
+                <mat-card-header>
+                  <mat-card-title>User Details</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <app-userd-details [user]="selectedUser()"></app-userd-details>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          } @loading (minimum 500ms) {
+            <div class="loading-placeholder">
+              <mat-spinner diameter="40"></mat-spinner>
+              <p>Loading user details...</p>
+            </div>
+          } @placeholder {
+            <div class="placeholder-message">
+              <p>Select a user to view details</p>
+            </div>
+          }  -->
+        
+        <button mat-raised-button  (click)="logout()">Logout</button>
+    </div>
+</main>
